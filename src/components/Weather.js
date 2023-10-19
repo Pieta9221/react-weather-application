@@ -1,15 +1,21 @@
+// Weather.js
+import React from 'react';
 import './Weather.css';
 
 const Weather = (props) => {
   return (
-    <div className="output-sec">
-      <div className="location">
-        {props.place.name}, {props.place.region}
+    <div className="weather-container">
+      <div className="left-section">
+        <img src={props.data.condition.icon} alt="" className="weather-icon" />
+        <div className="sky-status">{props.data.condition.text}</div>
       </div>
-      <img src={props.data.condition.icon} alt="" />
-      <div className="sky-status">{props.data.condition.text}</div>
-      <div className="temp">Temperature : {props.data.temp_c}°C</div>
-      <div className="humidity">Humidity : {props.data.humidity}</div>
+      <div className="right-section">
+        <div className="location">
+          {props.place.name}, {props.place.region}
+        </div>
+        <div className="temp"><b>Temperature: </b>{props.data.temp_c}°C</div>
+        <div className="humidity"><b>Humidity:</b>{props.data.humidity}</div>
+      </div>
     </div>
   );
 };

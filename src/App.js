@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import Weather from './components/Weather';
 import LoadingIndicator from './UI/LoadingIndicator';
+import sadCloud from './assets/img/sad_cloud.png';
 
 import './app.css';
 
@@ -41,6 +42,7 @@ function App() {
     }`;
     const response = await fetch(url, options);
     const responseData = await response.json();
+    
     return responseData;
   }, []);
 
@@ -53,35 +55,41 @@ function App() {
   }, [location, search, fetchData]);
 
   let display = data ? (
-    <Weather place={place} data={data} />
+    <Weather className='sec' place={place} data={data} />
   ) : (
-    <p>no data found 😬</p>
+    <div className='search-container'>
+    <p>Oops! no data found</p>
+    <img src={sadCloud} alt="sad cloud" className="weather-icon" />
+    </div>
   );
 
   return (
     <>
       <div className="container">
+        <div className='box'>
         <h1>WEATHER APPLICATION</h1>
-        <div className="search-sec">
-          <input
-            type="text"
+        <div className="search-container">
+          <input className="search-input" type="text" name="search"
             value={search}
             placeholder="Search by City..."
-            onChange={handleSearch}
-          />
+            onChange={handleSearch} />
+          <i className="fas fa-search search-icon"></i>
+
         </div>
+
+        
         <div>
           <p>or</p>
         </div>
         <div>
           <button onClick={geoHandler}>Find me!</button>
         </div>
-        <br />
-        <br />
+        
         {isLoading && <LoadingIndicator />}
         {display}
+        </div>
       </div>
-      <span className="credit">Ranvir@zetabug/github</span>
+      {/* <span className="credit">Ranvir@zetabug/github</span> */}
     </>
   );
 }
